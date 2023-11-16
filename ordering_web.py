@@ -14,27 +14,21 @@ menu = {
 def calculate_subtotal(order):
     """ Calculates the subtotal of an order
 
-    [IMPLEMENT ME] 
-        1. Add up the prices of all the items in the order and return the sum
-
     Args:
         order: list of dicts that contain an item name and price
 
     Returns:
-        float = The sum of the prices of the items in the order
+        float: The sum of the prices of the items in the order
     """
     print('Calculating bill subtotal...')
-    ### WRITE SOLUTION HERE
     subtotal = 0.0  # Initialize subtotal
-    for item_name in order:
-        # Search for the item in the menu dictionary
-        for key, value in menu.items():
-            if value['name'] == item_name:
-                # Add the price of the item to the subtotal
-                subtotal += value['price']
-                break  # Stop searching for the item once found
+    for item in order:
+        subtotal += item['price']  # Add the price of each item to the subtotal
+
+        rounded_subtotal = float(f'{subtotal:.2f}')
     
-    return float(subtotal)
+    return rounded_subtotal
+
 
     raise NotImplementedError()
 
@@ -122,6 +116,8 @@ def take_order():
         order.append(menu[int(item)])
     return order
 
+
+
 '''
 Here are some sample function calls to help you test your implementations.
 Feel free to change, uncomment, and add these as you wish.
@@ -129,18 +125,18 @@ Feel free to change, uncomment, and add these as you wish.
 def main():
     order = take_order()
 
-    if order:
-        print(f"You have ordered {len(order)} items")
-        items_ordered = [item['name'] for item in order]
-        print(items_ordered)
+    # if order:
+    #     print(f"You have ordered {len(order)} items")
+    #     items_ordered = [item['name'] for item in order]
+    #     print(items_ordered)
         
-        subtotal = calculate_subtotal(items_ordered)
-        print(f"Subtotal for the order is: ${subtotal:.2f}")
-    else:
-        print("No items ordered.")
+    #     subtotal = calculate_subtotal(items_ordered)
+    #     print(f"Subtotal for the order is: ${subtotal:.2f}")
+    # else:
+    #     print("No items ordered.")
 
-    # subtotal = calculate_subtotal(order)
-    # print("Subtotal for the order is: " + str(subtotal))
+    subtotal = calculate_subtotal(order)
+    print("Subtotal for the order is: " + str(subtotal))
 
     tax = calculate_tax(subtotal)
     print("Tax for the order is: " + str(tax))
